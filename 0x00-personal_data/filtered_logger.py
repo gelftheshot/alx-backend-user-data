@@ -33,39 +33,6 @@ def get_logger() -> logging.Logger:
     logger.setHandler(s_handler)
     return logger
 
-user=getenv('PERSONAL_DATA_DB_USERNAME', 'root')
-password=getenv('PERSONAL_DATA_DB_PASSWORD', '')
-host=getenv('PERSONAL_DATA_DB_HOST', 'localhost')
-name=getenv('PERSONAL_DATA_DB_NAME')
-
-
-def get_db() -> mysql.connector.connection.MySQLConnection:
-    """ a fucntion that return a connction object """
-    cnx = mysql.connector.connection.MySQLConnection(
-            host=host,
-            user=user,
-            password=password,
-            database=name
-        )
-    return cnx
-
-def main():
-    '''
-        the main function to do the job
-    '''
-    database = get_db()
-    cursor = database.cursor()
-    cursor.execute("SELECT * FROM users;")
-    fields = [i[0] for i in cursor.description]
-
-    log = get_logger()
-
-    for row in cursor:
-        str_row = ''.join(f'{f}={str(r)}; ' for r, f in zip(row, fields))
-        log.info(str_row.strip())
-
-    cursor.close()
-    database.close()
 
 class RedactingFormatter(logging.Formatter):
     """ RedactingFormatter class """
@@ -84,3 +51,43 @@ class RedactingFormatter(logging.Formatter):
             self.fields, self.REDACTION,
             super().format(record), self.SEPARATOR
         )
+
+
+user = getenv('PERSONAL_DATA_DB_USERNAME', 'root')
+password = getenv('PERSONAL_DATA_DB_PASSWORD', '')
+host = getenv('PERSONAL_DATA_DB_HOST', 'localhost')
+name = getenv('PERSONAL_DATA_DB_NAME')
+
+
+def get_db() -> mysql.connector.connection.MySQLConnection:
+    """ a fucntion that return a connction object """
+    cnx = mysql.connector.connection.MySQLConnection(
+            host=host,
+            user=user,
+            password=password,
+            database=name
+        )
+    return cnx
+
+
+def main():
+    '''
+        main function to connect all
+    '''
+    database = get_db()
+    cursor = database.cursor()
+    cursor.execute("SELECT * FROM users;")
+    fields = [i[0] for i in cursor.description]
+
+    log = get_logger()
+
+    for row in cursor:
+        str_row = ''.join(f'{f}={str(r)}; ' for r, f in zip(row, fields))
+        log.info(str_row.strip())
+
+    cursor.close()
+    database.close()
+
+
+if __name__ == '__main__':
+    main()
