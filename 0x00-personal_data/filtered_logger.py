@@ -33,22 +33,16 @@ def get_logger() -> logging.Logger:
     logger.setHandler(s_handler)
     return logger
 
-user=getenv('PERSONAL_DATA_DB_USERNAME', 'root')
-password=getenv('PERSONAL_DATA_DB_PASSWORD', '')
-host=getenv('PERSONAL_DATA_DB_HOST', 'localhost')
-name=getenv('PERSONAL_DATA_DB_NAME')
-
 
 def get_db() -> mysql.connector.connection.MySQLConnection:
     """ a fucntion that return a connction object """
-    cnx = mysql.connector.connection.MySQLConnection(
-    host=host,
-    user=user,
-    password=password,
-    database=name
-    )
-    return cnx
+    cxn = mysql.connector.connection.MySQLConnection(
+        user=getenv('PERSONAL_DATA_DB_USERNAME', 'root'),
+        password=getenv('PERSONAL_DATA_DB_PASSWORD', ''),
+        host=getenv('PERSONAL_DATA_DB_HOST', 'localhost'),
+        database=getenv('PERSONAL_DATA_DB_NAME'))
 
+    return cxn
 
 class RedactingFormatter(logging.Formatter):
     """ RedactingFormatter class """
