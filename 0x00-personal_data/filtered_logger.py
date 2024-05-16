@@ -11,10 +11,8 @@ def filter_datum(
                 ) -> str:
     """ returns the log message obfuscated """
     for field in fields:
-        message = re.sub(
-            rf'{field}=(.*?){separator}',
-            f'{field}={redaction}{separator}', message
-        )
+        message = re.sub(rf'{field}=(.*?){separator}',
+                        f'{field}={redaction}{separator}', message)
     return message
 
 
