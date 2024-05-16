@@ -19,7 +19,8 @@ def filter_datum(
         )
     return message
 
-def get_logger()->logging.Logger:
+
+def get_logger() -> logging.Logger:
     """ a func used to get a logger """
     logger = logging.getLogger("user_data")
     s_handler = logging.StreamHandler()
@@ -29,9 +30,6 @@ def get_logger()->logging.Logger:
     s_handler.setFormatter(formatter)
     logger.setHandler(s_handler)
     return logger
-    
-
-
 
 
 class RedactingFormatter(logging.Formatter):
