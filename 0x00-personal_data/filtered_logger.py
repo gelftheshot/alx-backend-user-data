@@ -6,6 +6,7 @@ import re
 import logging
 from typing import List
 
+
 def filter_datum(
                 fields: List[str], redaction: str, message: str, separator: str
                 ) -> str:
@@ -19,16 +20,18 @@ def filter_datum(
 
 
 class RedactingFormatter(logging.Formatter):
+    """ RedactingFormatter class """
     REDACTION = "***"
     FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
     SEPARATOR = ";"
 
-    def __init__(self, fields: list, fmat: str = FORMAT):
-        super(RedactingFormatter, self).__init__(fmat)
+    def __init__(self, fields: List[str]):
+        """ RedactingFormatter class constructor"""
+        super(RedactingFormatter, self).__init__(self.FORMAT)
         self.fields = fields
-        self.fmat = fmat
 
     def format(self, record: logging.LogRecord) -> str:
+        """ this is the format method """
         return filter_datum(
             self.fields, self.REDACTION,
             super().format(record), self.SEPARATOR
