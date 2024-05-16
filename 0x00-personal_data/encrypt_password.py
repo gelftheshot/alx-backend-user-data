@@ -2,8 +2,9 @@
 """ a fucntion to hash a password """
 import bcrypt
 
+
 def hash_password(password: str) -> bytes:
-    ''' 
+    '''
         checking if a password is hashed
     '''
     pass_encoded = password.encode()
