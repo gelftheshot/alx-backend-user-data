@@ -19,19 +19,16 @@ def filter_datum(
 
 
 class RedactingFormatter(logging.Formatter):
-    """ for changing format of log message """
     REDACTION = "***"
     FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
     SEPARATOR = ";"
 
     def __init__(self, fields: list, fmat: str = FORMAT):
-        """ constructor """
         super(RedactingFormatter, self).__init__(fmat)
         self.fields = fields
         self.fmat = fmat
 
     def format(self, record: logging.LogRecord) -> str:
-        """ filter values in incoming log records using filter_datum """
         return filter_datum(
             self.fields, self.REDACTION,
             super().format(record), self.SEPARATOR
