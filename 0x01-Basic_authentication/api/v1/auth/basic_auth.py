@@ -7,5 +7,6 @@ from . import Auth
 
 class BasicAuth(Auth):
     """ empty class for now
+        but will be modifed later
     """
     pass
