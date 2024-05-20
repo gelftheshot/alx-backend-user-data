@@ -4,6 +4,7 @@
 from flask import jsonify, abort
 from api.v1.views import app_views
 from api.v1.app import un_Authorized
+from flask import Response
 
 @app_views.route('/status', methods=['GET'], strict_slashes=False)
 def status() -> str:
@@ -25,8 +26,9 @@ def stats() -> str:
     stats['users'] = User.count()
     return jsonify(stats)
 
+
 @app_views.route('/unauthorized')
-def unauthorized_route():
+def unauthorized_route() -> Response:
     """
         way to return unauthorize end point
     """
