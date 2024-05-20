@@ -1,4 +1,4 @@
-#!/usr/bin/bin python3
+#!/usr/bin/env python3
 """
     a calss the inherit from auth
 """
