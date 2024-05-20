@@ -4,6 +4,7 @@ from flask import request
 from typing import List
 from typing import TypeVar
 
+
 class Auth():
     """the main authentication class
     """
@@ -11,16 +12,13 @@ class Auth():
         """ retun just fals for now
         """
         return False
-    
 
-    def authorization_header(self, request : request = None) -> str:
+    def authorization_header(self, request: request = None) -> str:
         """ return none for now it will be
         """
         return None
 
-    
     def current_user(self, request=None) -> TypeVar('User'):
         """ return none for now it wiil be
         """
         return None
-
