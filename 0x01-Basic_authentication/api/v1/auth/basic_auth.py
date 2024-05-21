@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
-    a calss the inherit from auth
+    a class used to authenticatin purpose of user
+    using api
 """
 from api.v1.auth.auth import Auth
 import base64
