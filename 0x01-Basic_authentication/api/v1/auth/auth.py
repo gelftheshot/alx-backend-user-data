@@ -9,7 +9,7 @@ class Auth():
     """the main authentication class
     """
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
-        """ return ture if path is not in
+        """ return true if path is not in
             excluded_path and aggs none
         """
         if path is None:
@@ -20,8 +20,12 @@ class Auth():
         excluded_paths = [
             p + '/' if not p.endswith('/') else p
             for p in excluded_paths]
-        if path in excluded_paths:
-            return False
+        for p in excluded_paths:
+            if p.endswith('*'):
+                if path.startswith(p[:-1]):
+                    return False
+            elif path == p:
+                return False
         return True
 
     def authorization_header(self, request: request = None) -> str:
