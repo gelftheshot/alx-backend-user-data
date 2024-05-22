@@ -48,6 +48,7 @@ def before_request() -> str:
     """cooking staff before any
         thing actually done
     """
+    request.current_user = auth.current_user(request)
     if not auth:
         return
     excluded_paths = [
