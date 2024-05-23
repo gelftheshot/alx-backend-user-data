@@ -61,10 +61,14 @@ def before_request() -> str:
         '/api/v1/auth_session/login/']
     if not auth.require_auth(request.path, excluded_paths):
         return
-    if auth.authorization_header(request) is None and auth.session_cookie(request) is None:
+    auth_header = auth.authorization_header(request)
+    session_cookie = auth.session_cookie(request)
+
+    if not (auth_header or session_cookie):
         abort(401)
     if auth.current_user(request) is None:
         abort(403)
+
 
 if __name__ == "__main__":
     host = getenv("API_HOST", "0.0.0.0")
