@@ -41,7 +41,3 @@ def user_login():
         response = jsonify(c_user.to_json())
         response.set_cookie(cooki_name, ses_id)
         return response
-    
-
-
-    
