@@ -38,7 +38,7 @@ def user_login():
     else:
         from api.v1.app import auth
 
-        user = found_users[0]
+        user = c_user
         session_id = auth.create_session(user.id)
 
         SESSION_NAME = getenv("SESSION_NAME")
