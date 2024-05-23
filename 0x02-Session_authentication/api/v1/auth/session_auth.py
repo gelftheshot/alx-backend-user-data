@@ -43,3 +43,17 @@ class SessionAuth(Auth):
         user_id = self.user_id_for_session_id(ses_id)
         user = User.get(user_id)
         return user
+
+    def destroy_session(self, request=None):
+        """ delete a user from it's logged in condtion
+            with out hesitation
+        """
+        if request is None:
+            return False
+        ses_id = self.session_cookie(request)
+        if not ses_id:
+            return False
+        if not self.user_id_for_session_id(ses_id):
+            return False
+        del self.user_id_by_session_id[ses_id]
+        return True
