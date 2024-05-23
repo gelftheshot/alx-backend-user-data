@@ -38,6 +38,7 @@ class Auth():
         """ return none for now it wiil be
         """
         return None
+
     def session_cookie(self, request=None):
         """ a method that will return a cookie value
             from the request
