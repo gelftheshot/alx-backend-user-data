@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" view for users 
+""" view for users
 """
 from flask import jsonify, abort, make_response
 from api.v1.views import app_views
@@ -32,12 +32,18 @@ def user_login():
         if user.is_valid_password(user_pwd):
             c_user = user
             break
-    
+
     if not c_user:
         return jsonify('{ "error": "wrong password" }')
     else:
         from api.v1.app import auth
-        ses_id = auth.create_session(c_user.id)
-        response = jsonify(c_user.to_json())
-        response.set_cookie(cooki_name, ses_id)
+
+        user = found_users[0]
+        session_id = auth.create_session(user.id)
+
+        SESSION_NAME = getenv("SESSION_NAME")
+
+        response = jsonify(user.to_json())
+        response.set_cookie(SESSION_NAME, session_id)
+
         return response
