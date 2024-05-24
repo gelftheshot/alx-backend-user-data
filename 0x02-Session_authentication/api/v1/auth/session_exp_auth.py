@@ -42,8 +42,10 @@ class SessionExpAuth(SessionAuth):
             return None
         user_id = self.user_id_for_session_id(ses_id)
         created_at = datetime.now()
-        session_dict = {"user_id": user_id, "created_at": created_at}
-        self.user_id_by_session_id[ses_id] = session_dict
+         SessionExpAuth.user_id_by_session_id[ses_id] = {
+            'user_id': user_id,
+            'created_at': datetime.now()
+        }
         return ses_id
 
     def user_id_for_session_id(self, session_id=None):
