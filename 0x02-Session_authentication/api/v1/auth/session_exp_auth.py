@@ -28,4 +28,31 @@ class SessionExpAuth(SessionAuth):
         session_dict = {"user_id": user_id, "created_at": created_at}
         self.user_id_by_session_id[ses_id] = session_dict
         return ses_id
+
+        def user_id_for_session_id(self, session_id=None):
+        """ we are giving the session and expi
+            date in this class
+        """
+        if session_id is None:
+            return None
+
+        session_dict = SessionExpAuth.user_id_by_session_id.get(
+            session_id, None)
+        if session_dict is None:
+            return None
+        if 'created_at' not in session_dict:
+            return None
+
+        if self.session_duration <= 0:
+            return session_dict.get('user_id')
+
+        creation_time = session_dict.get('created_at')
+
+        session_length = timedelta(seconds=self.session_duration)
+
+        expiry_time = creation_time + session_length
+
+        if expiry_time < datetime.now():
+            return None
+        return session_dict.get('user_id')
         
