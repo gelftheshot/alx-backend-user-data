@@ -40,9 +40,7 @@ class SessionExpAuth(SessionAuth):
         ses_id = super().create_session(user_id)
         if ses_id is None:
             return None
-        user_id = self.user_id_for_session_id(ses_id)
-        created_at = datetime.now()
-         SessionExpAuth.user_id_by_session_id[ses_id] = {
+        SessionExpAuth.user_id_by_session_id[ses_id] = {
             'user_id': user_id,
             'created_at': datetime.now()
         }
