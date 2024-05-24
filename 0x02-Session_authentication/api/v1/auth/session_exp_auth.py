@@ -29,7 +29,7 @@ class SessionExpAuth(SessionAuth):
         self.user_id_by_session_id[ses_id] = session_dict
         return ses_id
 
-        def user_id_for_session_id(self, session_id=None):
+    def user_id_for_session_id(self, session_id=None):
         """ we are giving the session and expi
             date in this class
         """
