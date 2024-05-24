@@ -8,14 +8,14 @@ from datetime import datetime
 
 
 class SessionExpAuth(SessionAuth):
-    """ the main class fucntion startes here
+    """the main class fucntion startes here
     """
     def __init__(self):
         """ constructor fucntion for session
             authentication expiredate
         """"
         session_duration = int(os.environ.get('SESSION_DURATION', 0))
-    
+
     def create_session(self, user_id=None):
         """ over riding the create session class
             from the parent class
@@ -55,4 +55,3 @@ class SessionExpAuth(SessionAuth):
         if expiry_time < datetime.now():
             return None
         return session_dict.get('user_id')
-        
