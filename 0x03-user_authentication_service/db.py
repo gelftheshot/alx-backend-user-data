@@ -1,17 +1,20 @@
 #!/usr/bin/env python3
-"""DB module
+
+"""
+    a database of users the db calss used to update commit
+    and find a user from the database
 """
 from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
 from sqlalchemy.exc import InvalidRequestError, NoResultFound
-import bcrypt
 from user import Base
 from user import User
 
+
 class DB:
-    """DB class
+    """
+        DB class represention here
     """
 
     def __init__(self) -> None:
@@ -30,16 +33,15 @@ class DB:
             DBSession = sessionmaker(bind=self._engine)
             self.__session = DBSession()
         return self.__session
-    
+
     def add_user(self, email: str, hashed_password: str) -> User:
         """
             a method used to add the user
         """
-        new_user = User(email = email, hashed_password = hashed_password)
+        new_user = User(email=email, hashed_password=hashed_password)
         self._session.add(new_user)
         self._session.commit()
         return new_user
- 
 
     def find_user_by(self, **kwargs):
         """
@@ -52,12 +54,12 @@ class DB:
             return user
         except NoResultFound as e:
             raise e
-        except InvalidRequestError as e :
+        except InvalidRequestError as e:
             raise e
-        
+
     def update_user(self, user_id, **kwargs) -> None:
         """
-            The method will use find_user_by to locate the user 
+            The method will use find_user_by to locate the user
             to update, then will update the user’s attributes as
             passed in the method’s arguments then commit changes
             to the database.
@@ -66,7 +68,6 @@ class DB:
             is passed, raise a ValueError
         """
         user = self.find_user_by(id=user_id)
-        
         if user:
             for key, value in kwargs.items():
                 if hasattr(user, key):
