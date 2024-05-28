@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 """
     a database of users the db calss used to update commit
     and find a user from the database
