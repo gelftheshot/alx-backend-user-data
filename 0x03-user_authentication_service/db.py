@@ -1,13 +1,13 @@
+#!/usr/bin/env python3
 """
     a database of users the db calss used to update commit
     and find a user from the database
 """
 from sqlalchemy import create_engine
+from sqlalchemy.exc import InvalidRequestError, NoResultFound
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
-from sqlalchemy.exc import InvalidRequestError, NoResultFound
-from user import Base
-from user import User
+from user import Base, User
 
 
 class DB:
