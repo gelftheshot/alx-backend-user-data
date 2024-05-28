@@ -48,7 +48,7 @@ def login() -> str:
 
 
 @app.route("/sessions", methods=['DELETE'], strict_slashes=False)
-def logout() -> str:
+def logout():
     """
         loggin a user out by deleting it's session id
     """
