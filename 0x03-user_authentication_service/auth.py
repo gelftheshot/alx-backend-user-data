@@ -57,8 +57,9 @@ class Auth:
             emial address
         """
         user = self._db.find_user_by(email=email)
-        ses_id = _generate_uuid()
-        setattr(user, "session_id", ses_id)
-        self._db._session.commit()
-        return ses_id
+        if user:
+            ses_id = _generate_uuid()
+            setattr(user, "session_id", ses_id)
+            self._db._session.commit()
+            return ses_id
 
