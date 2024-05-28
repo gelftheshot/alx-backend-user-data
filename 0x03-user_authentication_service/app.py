@@ -27,6 +27,7 @@ def users() -> str:
     except ValueError:
         return jsonify({"message": "email already registered"}), 400
 
+
 @app.route("/sessions", methods=['POST'], strict_slashes=False)
 def login() -> str:
     """
@@ -43,7 +44,6 @@ def login() -> str:
         return response
     else:
         abort(401)
-
 
 
 if __name__ == "__main__":
