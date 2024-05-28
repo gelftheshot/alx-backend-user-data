@@ -6,6 +6,7 @@ from user import User
 from uuid import uuid4
 from typing import Union
 
+
 def _hash_password(password: str) -> bytes:
     """
         a method used to hash a password using
@@ -74,5 +75,3 @@ class Auth:
             return user
         except NoResultFound:
             return None
-
-
