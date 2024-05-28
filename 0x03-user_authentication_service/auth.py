@@ -50,3 +50,15 @@ class Auth:
             return False
         else:
             return bcrypt.checkpw(password.encode('utf-8'), user.hashed_password)
+
+    def create_session(self, email: str) -> str:
+        """
+            create the session for one user with given
+            emial address
+        """
+        user = self._db.find_user_by(email=email)
+        ses_id = _generate_uuid()
+        setattr(user, "session_id", ses_id)
+        self._db._session.commit()
+        return ses_id
+
