@@ -23,14 +23,16 @@ def _generate_uuid() -> str:
 
 
 class Auth:
-    """Auth class to interact with the authentication database.
+    """
+        Auth class to interact with the authentication database.
     """
 
     def __init__(self):
         self._db = DB()
 
     def register_user(self, email: str, password: str) -> User:
-        """Creates a new user if the email does not exist
+        """
+            Creates a new user if the email does not exist
         """
         try:
             user = self._db.find_user_by(email=email)
@@ -45,10 +47,10 @@ class Auth:
         """
         try:
             user = self._db.find_user_by(email=email)
-            pwd = user.hashed_password
-            return bcrypt.checkpw(password.encode('utf-8'), pwd)
         except NoResultFound:
             return False
+        pwd = user.hashed_password
+        return bcrypt.checkpw(password.encode('utf-8'), pwd)
 
     def create_session(self, email: str) -> str:
         """
