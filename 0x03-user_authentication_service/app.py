@@ -11,16 +11,15 @@ app = Flask(__name__)
 
 
 @app.route("/", methods=['GET'], strict_slashes=False)
-def home():
+def home() -> str:
     return jsonify({"message": "Bienvenue"})
 
 
 @app.route("/users", methods=['POST'], strict_slashes=False)
-def users():
+def users() -> str:
     """
         create or return user
     """
-
     email = request.form.get('email')
     passwd = request.form.get('password')
 
