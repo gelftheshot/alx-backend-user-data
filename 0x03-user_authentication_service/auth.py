@@ -83,3 +83,14 @@ class Auth:
         user = self._db.find_user_by(id=user_id)
         setattr(user, "session_id", None)
         return None
+
+    def get_reset_password_token(self, email: str) -> str:
+        """
+            return the token of password from the user
+        """
+        try:
+            user = self.get_user_from_session_id(email=email)
+            token = _generate_uuid()
+            setattr(user, 'reset_token', token)
+        except NoResultFound:
+            raise ValueError
