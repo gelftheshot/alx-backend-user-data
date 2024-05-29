@@ -59,7 +59,7 @@ def logout():
     abort(403)
 
 
-@app.route("/profile", methods=["GET"], strict_slashes=False)
+@app.route("/profile", methods=["GET"])
 def profile() -> str:
     """
         this is the profile section
