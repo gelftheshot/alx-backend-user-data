@@ -2,6 +2,7 @@
 import bcrypt
 from db import DB
 from sqlalchemy.orm.exc import NoResultFound
+from sqlalchemy.exc import InvalidRequestError
 from user import User
 from uuid import uuid4
 from typing import Union
@@ -106,5 +107,5 @@ class Auth:
             hashed_password = _hash_password(password)
             setattr(user, "hashed_password", hashed_password)
             setattr(user, "reset_token", None)
-        except NoResultFound:
+        except (NoResultFound, InvalidRequestError):
             raise ValueError
