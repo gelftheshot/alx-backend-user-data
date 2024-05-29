@@ -105,6 +105,6 @@ class Auth:
             user = self._db.find_user_by(reset_token=reset_token)
             hashed_password = _hash_password(password)
             setattr(user, "hashed_password", hashed_password)
-            setattr(user, reset_token, None)
+            setattr(user, "reset_token", None)
         except NoResultFound:
             raise ValueError
