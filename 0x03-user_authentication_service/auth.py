@@ -89,7 +89,7 @@ class Auth:
             return the token of password from the user
         """
         try:
-            user = self.get_user_from_session_id(email=email)
+            user = self._db.find_user_by(email=email)
             token = _generate_uuid()
             setattr(user, 'reset_token', token)
         except NoResultFound:
