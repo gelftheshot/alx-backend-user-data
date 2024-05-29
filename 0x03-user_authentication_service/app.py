@@ -55,7 +55,7 @@ def logout():
     user = AUTH.get_user_from_session_id(session_id)
     if user is not None:
         AUTH.destroy_session(user.id)
-        return redirect("/", code=302)
+        return redirect("/")
     abort(403)
 
 
@@ -67,7 +67,7 @@ def profile() -> str:
     ses_id = request.cookies.get("session_id")
     user = AUTH.get_user_from_session_id(ses_id)
     if user:
-        return jsonify({"email": user.email})
+        return jsonify({"email": user.email}), 200
     abort(403)
 
 
