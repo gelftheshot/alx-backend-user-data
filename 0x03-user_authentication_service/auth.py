@@ -34,14 +34,15 @@ class Auth:
 
     def register_user(self, email: str, password: str) -> User:
         """
-            Creates a new user if the email does not exist
+        Creates a new user if the email does not exist
         """
         try:
             user = self._db.find_user_by(email=email)
+            if user:
+                raise ValueError
         except NoResultFound:
-            user = self._db.add_user(email, _hash_password(password))
-            return user
-        raise ValueError("User %s already exists" % email)
+                user = self._db.add_user(email, _hash_password(password))
+                return user
 
     def valid_login(self, email: str, password: str) -> bool:
         """
