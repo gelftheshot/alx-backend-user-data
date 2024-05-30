@@ -32,7 +32,6 @@ def log_in(email: str, password: str) -> str:
     })
     assert r.status_code == 200
     assert r.json() == {'email': email, 'message': "logged in"}
-    # parse the response cookie to return the session_id for other methods
     return r.cookies.get('session_id')
 
 
@@ -56,7 +55,6 @@ def log_out(session_id: str) -> None:
     r = requests.delete('http://127.0.0.1:5000/sessions', cookies={
         'session_id': session_id
     })
-    # look inside response's history to check that a 302 redirect occured
     for past_r in r.history:
         assert past_r.status_code == 302
 
@@ -67,7 +65,6 @@ def reset_password_token(email: str) -> str:
         'email': email,
     })
     assert r.status_code == 200
-    # parse json response to return the reset_token for other methods
     return r.json().get('reset_token')
 
 
