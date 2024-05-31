@@ -42,7 +42,7 @@ class Auth:
             if user:
                 raise ValueError("User %s already exists" % email)
         except NoResultFound:
-             user = User(email=email, hashed_password=hashed_password)
+            user = User(email=email, hashed_password=hashed_password)
             self._session.add(user)
             self._session.commit()
             return user
