@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import bcrypt
 from db import DB
+from user import User
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.exc import InvalidRequestError
 from user import User
@@ -41,9 +42,10 @@ class Auth:
             if user:
                 raise ValueError("User %s already exists" % email)
         except NoResultFound:
-            user = self._db.add_user(email, _hash_password(password))
+             user = User(email=email, hashed_password=hashed_password)
+            self._session.add(user)
+            self._session.commit()
             return user
-
     def valid_login(self, email: str, password: str) -> bool:
         """
             check if the password is correct or not
