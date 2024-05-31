@@ -1,4 +1,9 @@
 #!/usr/bin/env python3
+"""
+    this module is for authenticaton of users
+    check the validy of the users
+    and more
+"""
 import bcrypt
 from db import DB
 from user import User
