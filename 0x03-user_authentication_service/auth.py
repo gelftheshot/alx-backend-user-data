@@ -7,7 +7,15 @@ from sqlalchemy.exc import InvalidRequestError
 from user import User
 from uuid import uuid4
 from typing import Union
+from sqlalchemy import create_engine
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 
+engine = create_engine("sqlite:///a.db", echo=False)
+
+Session = sessionmaker(bind=engine)
+
+session = Session()
 
 def _hash_password(password: str) -> bytes:
     """
@@ -47,12 +55,14 @@ class Auth:
             self._db._session.add(user)
             self._db._session.commit()
             return user
+
+
     def valid_login(self, email: str, password: str) -> bool:
         """
             check if the password is correct or not
         """
         try:
-            user = self._db.find_user_by(email=email)
+            user = self._session.query(User).filter_by(email=email).one()
         except NoResultFound:
             return False
         return bcrypt.checkpw(password.encode('utf-8'), user.hashed_password)
