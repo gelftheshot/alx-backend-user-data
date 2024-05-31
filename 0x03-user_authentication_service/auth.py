@@ -17,6 +17,7 @@ Session = sessionmaker(bind=engine)
 
 session = Session()
 
+
 def _hash_password(password: str) -> bytes:
     """
         a method used to hash a password using
@@ -39,9 +40,10 @@ class Auth:
     """
 
     def __init__(self):
+        """
+            a constructor
+        """
         self._db = DB()
-
-
 
     def register_user(self, email: str, password: str) -> User:
         """
@@ -56,7 +58,6 @@ class Auth:
             session.add(user)
             session.commit()
             return user
-
 
     def valid_login(self, email: str, password: str) -> bool:
         """
