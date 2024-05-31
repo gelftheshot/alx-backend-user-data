@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-    a basic flask app
+    a basic flask app and different end points
 """
 from flask import Flask, jsonify, request, abort
 from flask import redirect
@@ -18,7 +18,8 @@ def home() -> str:
 @app.route("/users", methods=['POST'], strict_slashes=False)
 def users() -> str:
     """
-        create or return user
+        create or return user and return the user
+        that hasbeen called
     """
     email = request.form.get('email')
     passwd = request.form.get('password')
@@ -34,7 +35,7 @@ def users() -> str:
 def login() -> str:
     """
         an end point used to log the user
-        in
+        in and create season and log it in
     """
     email = request.form.get('email')
     passwd = request.form.get('password')
@@ -50,7 +51,8 @@ def login() -> str:
 
 @app.route("/sessions", methods=["DELETE"], strict_slashes=False)
 def logout():
-    """Logs out a login user
+    """Logs out a login user and return the redirction
+        to home page
     """
     session_id = request.cookies.get('session_id')
     user = AUTH.get_user_from_session_id(session_id)
@@ -63,7 +65,8 @@ def logout():
 @app.route("/profile", methods=["GET"], strict_slashes=False)
 def profile() -> str:
     """
-        this is the profile section
+        this is the profile section and return json of the
+        email
     """
     ses_id = request.cookies.get("session_id")
     user = AUTH.get_user_from_session_id(ses_id)
@@ -76,7 +79,8 @@ def profile() -> str:
 @app.route('/reset_password', methods=['POST'], strict_slashes=False)
 def reset_password() -> str:
     """
-        a toen to reset password
+        a toen to reset password an retur json
+        with emai and reset token
     """
     email = request.form.get('email')
 
@@ -91,7 +95,8 @@ def reset_password() -> str:
 @app.route('/reset_password', methods=['PUT'], strict_slashes=False)
 def update_password() -> str:
     """
-        a method to update password
+        a method to update password and return json format
+        of the updathed things
     """
     try:
         email = request.form['email']
