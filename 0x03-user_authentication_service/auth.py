@@ -41,19 +41,20 @@ class Auth:
     def __init__(self):
         self._db = DB()
 
+
+
     def register_user(self, email: str, password: str) -> User:
         """
         Creates a new user if the email does not exist
         """
         try:
-            user = self._db.find_user_by(email=email)
-            if user:
-                raise ValueError("User %s already exists" % email)
+            user = session.query(User).filter_by(email=email).one()
+            raise ValueError("User %s already exists" % email)
         except NoResultFound:
             hashed_password = _hash_password(password)
             user = User(email=email, hashed_password=hashed_password)
-            self._db._session.add(user)
-            self._db._session.commit()
+            session.add(user)
+            session.commit()
             return user
 
 
@@ -62,7 +63,7 @@ class Auth:
             check if the password is correct or not
         """
         try:
-            user = self._session.query(User).filter_by(email=email).one()
+            user = session.query(User).filter_by(email=email).one()
         except NoResultFound:
             return False
         return bcrypt.checkpw(password.encode('utf-8'), user.hashed_password)
